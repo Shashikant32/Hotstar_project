@@ -1,0 +1,25 @@
+<!-- Error Handling and Validation
+To make the application more robust, it would be good to add proper error handling, such as:
+
+Subscription Validation: Ensure that a subscription type is valid.
+Web Series and Match Availability: Check if a WebSeries or Match is available in the database before trying to access it.
+Edge Case Handling: Consider edge cases where a user might not be eligible for a subscription (e.g., when the customer tries to access content they don’t have permission to). -->
+
+public class SubscriptionService {
+    public Subscription createSubscription(String type, int noOfScreens) {
+        if (noOfScreens <= 0) {
+            throw new IllegalArgumentException("Number of screens must be greater than zero.");
+        }
+
+        switch (type.toUpperCase()) {
+            case "BASIC":
+                return new BasicSubscription(noOfScreens);
+            case "PRO":
+                return new ProSubscription(noOfScreens);
+            case "ELITE":
+                return new EliteSubscription(noOfScreens);
+            default:
+                throw new IllegalArgumentException("Invalid subscription type: " + type);
+        }
+    }
+}

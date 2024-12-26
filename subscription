@@ -1,0 +1,84 @@
+<!-- Handle Complex Subscription Rules
+You can add more flexibility to handle any future changes or more complex subscription rules by introducing an abstract Subscription class with subclasses for each type (i.e., BasicSubscription, ProSubscription, EliteSubscription). This could make it easier to manage, extend, and test the different types of subscriptions. -->
+
+public abstract class Subscription {
+    protected int noOfScreensSubscribed;
+
+    public Subscription(int noOfScreensSubscribed) {
+        this.noOfScreensSubscribed = noOfScreensSubscribed;
+    }
+
+    public abstract double calculateCost();
+
+    public abstract boolean canWatchWebSeries(WebSeries webSeries);
+
+    public abstract boolean canWatchMatch();
+}
+
+public class BasicSubscription extends Subscription {
+
+    public BasicSubscription(int noOfScreensSubscribed) {
+        super(noOfScreensSubscribed);
+    }
+
+    @Override
+    public double calculateCost() {
+        return 500 + 200 * noOfScreensSubscribed;
+    }
+
+    @Override
+    public boolean canWatchWebSeries(WebSeries webSeries) {
+        return "BASIC".equals(webSeries.getSubscriptionPlan());
+    }
+
+    @Override
+    public boolean canWatchMatch() {
+        return false;
+    }
+}
+
+public class ProSubscription extends Subscription {
+
+    public ProSubscription(int noOfScreensSubscribed) {
+        super(noOfScreensSubscribed);
+    }
+
+    @Override
+    public double calculateCost() {
+        return 800 + 250 * noOfScreensSubscribed;
+    }
+
+    @Override
+    public boolean canWatchWebSeries(WebSeries webSeries) {
+        return "BASIC".equals(webSeries.getSubscriptionPlan()) || "PRO".equals(webSeries.getSubscriptionPlan());
+    }
+
+    @Override
+    public boolean canWatchMatch() {
+        return false;
+    }
+}
+
+public class EliteSubscription extends Subscription {
+
+    public EliteSubscription(int noOfScreensSubscribed) {
+        super(noOfScreensSubscribed);
+    }
+
+    @Override
+    public double calculateCost() {
+        return 1000 + 350 * noOfScreensSubscribed;
+    }
+
+    @Override
+    public boolean canWatchWebSeries(WebSeries webSeries) {
+        return true;  // ELITE can watch all web series
+    }
+
+    @Override
+    public boolean canWatchMatch() {
+        return true;  // ELITE can watch all matches
+    }
+}
+<!-- 
+This approach follows the Strategy Pattern and allows flexibility for future subscription changes. Now you can easily add new types of subscriptions (e.g., a FamilySubscription or StudentSubscription) without affecting the existing code. -->
