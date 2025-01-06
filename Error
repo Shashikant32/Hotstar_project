@@ -1,5 +1,4 @@
-<!-- Error Handling and Validation
-To make the application more robust, it would be good to add proper error handling, such as:
+// <!-- Error Handling and Validation To make the application more robust, it would be good to add proper error handling, such as:
 
 Subscription Validation: Ensure that a subscription type is valid.
 Web Series and Match Availability: Check if a WebSeries or Match is available in the database before trying to access it.
